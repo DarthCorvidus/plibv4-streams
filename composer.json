@@ -1,0 +1,25 @@
+{
+	"minimum-stability": "dev",
+	"name": "plibv4/streams",
+	"autoload": {
+        "classmap": ["src/"]
+    },
+	"require": {
+		"vimeo/psalm": "^6.x-dev",
+		"phpunit/phpunit": "^9.6.x-dev"
+	},
+	"scripts": {
+		"test": "./vendor/bin/phpunit --bootstrap vendor/autoload.php tests",
+		"testdox": "./vendor/bin/phpunit --bootstrap vendor/autoload.php --testdox --colors=always tests",
+		"psalm": "./vendor/bin/psalm --show-info=true --no-cache",
+		"psatest": [
+			"./vendor/bin/psalm --show-info=true --no-cache",
+			"./vendor/bin/phpunit --bootstrap vendor/autoload.php tests/"
+		]
+	},
+	"config": {
+		"platform": {
+			"php": "8.2"
+		}
+	}
+}
