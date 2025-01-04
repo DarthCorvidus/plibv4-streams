@@ -17,7 +17,12 @@ abstract class FileStream implements Stream {
 	}
 	
 	protected function open(string $path, string $mode): void {
-		$this->handle = fopen($path, $mode);
+		$this->handle = @fopen($path, $mode);
+		$error = error_get_last();
+		if($error !== null) {
+			throw new StreamOpenException($error["message"]);
+		}
+
 		$this->closed = false;
 	}
 	
