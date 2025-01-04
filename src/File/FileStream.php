@@ -50,19 +50,9 @@ abstract class FileStream implements Stream {
 		return feof($this->handle);
 	}
 
-	public function seek(int $offset, int $whence = self::SEEK_SET): void {
-		$this->assertOpen();
-		fseek($this->handle, $offset, $whence);
-	}
-
 	public function tell(): int {
 		$this->assertOpen();
 		return ftell($this->handle);
-	}
-	
-	public function rewind(): void {
-		$this->assertOpen();
-		rewind($this->handle);
 	}
 	
 	public function __destruct() {
