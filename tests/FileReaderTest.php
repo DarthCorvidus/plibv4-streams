@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace plibv4\streams;
 use PHPUnit\Framework\TestCase;
 class FileReaderTest extends TestCase {
+	private mixed $handle = null;
 	static function setUpbeforeClass(): void {
 		$dir = "/tmp/phpunit/plibv4/streams/";
 		if(!file_exists($dir)) {
@@ -22,6 +23,12 @@ class FileReaderTest extends TestCase {
 			unlink($dir."/example02.txt");
 		}
 		rmdir($dir);
+	}
+	
+	function tearDown(): void {
+		if(is_resource($this->handle)) {
+			fclose($this->handle);
+		}
 	}
 	
 	function testConstruct(): void {
@@ -134,5 +141,16 @@ class FileReaderTest extends TestCase {
 		$fr->close();
 		$this->expectException(StreamClosedException::class);
 		$fr->rewind();
+	}
+	
+	function testStreamExceptionRead(): void {
+		$fr = new FileReader("/tmp/phpunit/plibv4/streams/example01.txt");
+		$this->handle = fopen("/tmp/phpunit/plibv4/streams/example02.txt", "a");
+		//fclose($this->handle);
+		$reflection = new \ReflectionClass($fr);
+		$property = $reflection->getProperty("handle");
+		$property->setValue($fr, $this->handle);
+		$this->expectException(StreamException::class);
+		$fr->read(15);
 	}
 }

@@ -16,13 +16,17 @@ abstract class FileStream implements Stream {
 		}
 	}
 	
-	protected function open(string $path, string $mode): void {
-		$this->handle = @fopen($path, $mode);
+	protected function checkError(): void {
 		$error = error_get_last();
 		if($error !== null) {
-			throw new StreamOpenException($error["message"]);
+			error_clear_last();
+			throw new StreamException($error["message"]);
 		}
-
+	}
+	
+	protected function open(string $path, string $mode): void {
+		$this->handle = @fopen($path, $mode);
+		$this->checkError();
 		$this->closed = false;
 	}
 	
@@ -41,23 +45,29 @@ abstract class FileStream implements Stream {
 		/**
 		 * @psalm-suppress InvalidPropertyAssignmentValue
 		 */
-		fclose($this->handle);
+		@fclose($this->handle);
+		$this->checkError();
 		$this->closed = true;
 	}
 
 	public function eof(): bool {
 		$this->assertOpen();
-		return feof($this->handle);
+		$feof = @feof($this->handle);
+		$this->checkError();
+	return $feof;
 	}
 
 	public function tell(): int {
 		$this->assertOpen();
-		return ftell($this->handle);
+		$tell = @ftell($this->handle);
+		$this->checkError();
+	return $tell;
 	}
 	
 	public function __destruct() {
 		if(!$this->closed) {
-			fclose($this->handle);
+			@fclose($this->handle);
+			$this->checkError();
 		}
 	}
 }

@@ -11,16 +11,20 @@ class FileReader extends FileStream implements StreamReader {
 
 	public function seek(int $offset, int $whence = self::SEEK_SET): void {
 		$this->assertOpen();
-		fseek($this->handle, $offset, $whence);
+		@fseek($this->handle, $offset, $whence);
+		$this->checkError();
 	}
 
 	public function rewind(): void {
 		$this->assertOpen();
-		rewind($this->handle);
+		@rewind($this->handle);
+		$this->checkError();
 	}
 
 	public function read(int $length): string {
 		$this->assertOpen();
-		return fread($this->handle, $length);
+		$data =  @fread($this->handle, $length);
+		$this->checkError();
+	return $data;
 	}
 }
