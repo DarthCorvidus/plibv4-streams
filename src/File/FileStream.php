@@ -6,8 +6,8 @@ abstract class FileStream implements Stream {
 	 * @psalm-suppress PropertyNotSetInConstructor
 	 */
 	protected mixed $handle;
-	protected bool $closed = false;
-	public function __construct(string $path) {
+	protected bool $closed = true;
+	protected function usableFileCheck(string $path): void {
 		if(!file_exists($path)) {
 			throw new NoSuchFileException();
 		}
@@ -15,7 +15,12 @@ abstract class FileStream implements Stream {
 			throw new NotAFileException();
 		}
 	}
-
+	
+	protected function open(string $path, string $mode): void {
+		$this->handle = fopen($path, $mode);
+		$this->closed = false;
+	}
+	
 	protected function assertOpen(): void {
 		if($this->closed) {
 			throw new StreamClosedException();

@@ -2,11 +2,11 @@
 namespace plibv4\streams;
 class FileReader extends FileStream implements StreamReader {
 	function __construct(string $path) {
-		parent::__construct($path);
+		$this->usableFileCheck($path);
 		if(!is_readable($path)) {
 			throw new FileNotReadableException();
 		}
-		$this->handle = fopen($path, "rb");
+		$this->open($path, "rb");
 	}
 
 	public function read(int $length): string {
