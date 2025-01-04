@@ -1,5 +1,5 @@
 <?php
 namespace plibv4\streams;
-class InvalidResourceException extends \RuntimeException {
+class InvalidResourceException extends StreamException {
 	
 }

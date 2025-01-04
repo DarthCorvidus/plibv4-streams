@@ -1,5 +1,5 @@
 <?php
 namespace plibv4\streams;
-class NoSuchFileException extends \RuntimeException {
+class NoSuchFileException extends StreamException {
 	
 }

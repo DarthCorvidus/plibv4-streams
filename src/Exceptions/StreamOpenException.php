@@ -1,5 +1,5 @@
 <?php
 namespace plibv4\streams;
-class StreamOpenException extends \RuntimeException  {
+class StreamOpenException extends StreamException  {
 	
 }
