@@ -64,7 +64,7 @@ class FileReaderTest extends TestCase {
 		$string = $fr->read(3);
 		$this->assertEquals("cat", $string);
 		$fr->seek(4);
-		$fr->seek(4, SEEK_CUR);
+		$fr->seek(4, Seek::CUR);
 		$string = $fr->read(2);
 		$this->assertEquals("is", $string);
 	}

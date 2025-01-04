@@ -9,9 +9,9 @@ class FileReader extends FileStream implements StreamReader {
 		$this->open($path, "rb");
 	}
 
-	public function seek(int $offset, int $whence = self::SEEK_SET): void {
+	public function seek(int $offset, Seek $whence = Seek::SET): void {
 		$this->assertOpen();
-		@fseek($this->handle, $offset, $whence);
+		@fseek($this->handle, $offset, $whence->value);
 		$this->checkError();
 	}
 
