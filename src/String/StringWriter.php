@@ -1,6 +1,7 @@
 <?php
 namespace plibv4\streams;
 class StringWriter extends StringStream implements StreamWriter {
+	#[\Override]
 	public function write(string $data): int {
 		$this->assertOpen();
 		$this->string .= $data;

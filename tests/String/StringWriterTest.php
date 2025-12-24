@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace plibv4\streams;
 use PHPUnit\Framework\TestCase;
-class StringWriterTest extends TestCase {
+final class StringWriterTest extends TestCase {
 	function testConstruct(): void {
 		$sw = new StringWriter();
 		$this->assertInstanceOf(StringWriter::class, $sw);

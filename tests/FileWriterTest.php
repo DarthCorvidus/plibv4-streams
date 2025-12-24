@@ -2,7 +2,8 @@
 declare(strict_types=1);
 namespace plibv4\streams;
 use PHPUnit\Framework\TestCase;
-class FileWriterTest extends TestCase {
+final class FileWriterTest extends TestCase {
+	#[\Override]
 	static function setUpbeforeClass(): void {
 		$dir = "/tmp/phpunit/plibv4/streams/";
 		if(!file_exists($dir)) {
@@ -10,6 +11,7 @@ class FileWriterTest extends TestCase {
 		}
 	}
 	
+	#[\Override]
 	static function tearDownAfterClass(): void {
 		$dir = "/tmp/phpunit/plibv4/streams/";
 		if(file_exists($dir."/example01.txt")) {
@@ -22,6 +24,7 @@ class FileWriterTest extends TestCase {
 		rmdir($dir);
 	}
 	
+	#[\Override]
 	function tearDown(): void {
 		$dir = "/tmp/phpunit/plibv4/streams/";
 		if(file_exists($dir."/example01.txt")) {

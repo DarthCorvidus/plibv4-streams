@@ -28,10 +28,12 @@ class FileWriter extends FileStream implements StreamWriter {
 		$this->open($path, "x");
 	}
 	
+	#[\Override]
 	public function write(string $data): int {
 		$this->assertOpen();
 		$written = fwrite($this->handle, $data);
 		$this->checkError();
+		/** @var int $written */
 	return $written;
 	}
 }

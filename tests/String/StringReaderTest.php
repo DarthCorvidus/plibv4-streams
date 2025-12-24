@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace plibv4\streams;
 use PHPUnit\Framework\TestCase;
-class StringReaderTest extends TestCase {
+final class StringReaderTest extends TestCase {
 	private string $example = "Tom and Jerry are merry, when the cat sleeps on a mat and the mouse wears a hat.";
 	function testConstruct(): void {
 		$sr = new StringReader($this->example);

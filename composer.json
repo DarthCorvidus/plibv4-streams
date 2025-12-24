@@ -1,10 +1,11 @@
 {
 	"minimum-stability": "dev",
+	"prefer-stable": true,
 	"name": "plibv4/streams",
 	"autoload": {
         "classmap": ["src/"]
     },
-	"require": {
+	"require-dev": {
 		"vimeo/psalm": "^6",
 		"phpunit/phpunit": "^9"
 	},

@@ -5,6 +5,7 @@ class StringReader extends StringStream implements StreamReader {
 		$this->string = $string;
 	}
 	
+	#[\Override]
 	public function read(int $length): string {
 		$this->assertOpen();
 		$data = substr($this->string, $this->pos, $length);
@@ -12,11 +13,13 @@ class StringReader extends StringStream implements StreamReader {
 	return $data;
 	}
 
+	#[\Override]
 	public function rewind(): void {
 		$this->assertOpen();
 		$this->pos = 0;
 	}
 
+	#[\Override]
 	public function seek(int $offset, Seek $whence = Seek::SET): void {
 		$this->assertOpen();
 		if($whence === Seek::CUR) {

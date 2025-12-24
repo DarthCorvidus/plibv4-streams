@@ -25,8 +25,10 @@ abstract class FileStream implements Stream {
 	}
 	
 	protected function open(string $path, string $mode): void {
-		$this->handle = @fopen($path, $mode);
+		$handle = @fopen($path, $mode);
 		$this->checkError();
+		/** @var resource $handle */
+		$this->handle = $handle;
 		$this->closed = false;
 	}
 	
@@ -40,6 +42,7 @@ abstract class FileStream implements Stream {
 		return !$this->closed;
 	}
 
+	#[\Override]
 	public function close(): void {
 		$this->assertOpen();
 		/**
@@ -50,6 +53,7 @@ abstract class FileStream implements Stream {
 		$this->closed = true;
 	}
 
+	#[\Override]
 	public function eof(): bool {
 		$this->assertOpen();
 		$feof = @feof($this->handle);
@@ -57,10 +61,12 @@ abstract class FileStream implements Stream {
 	return $feof;
 	}
 
+	#[\Override]
 	public function tell(): int {
 		$this->assertOpen();
 		$tell = @ftell($this->handle);
 		$this->checkError();
+		/** @var int $tell */
 	return $tell;
 	}
 	

@@ -2,8 +2,9 @@
 declare(strict_types=1);
 namespace plibv4\streams;
 use PHPUnit\Framework\TestCase;
-class FileReaderTest extends TestCase {
+final class FileReaderTest extends TestCase {
 	private mixed $handle = null;
+	#[\Override]
 	static function setUpbeforeClass(): void {
 		$dir = "/tmp/phpunit/plibv4/streams/";
 		if(!file_exists($dir)) {
@@ -13,6 +14,7 @@ class FileReaderTest extends TestCase {
 		file_put_contents($dir."/example02.txt", "Tom and Jerry today are merry.");
 	}
 	
+	#[\Override]
 	static function tearDownAfterClass(): void {
 		$dir = "/tmp/phpunit/plibv4/streams/";
 		if(file_exists($dir."/example01.txt")) {
@@ -25,6 +27,7 @@ class FileReaderTest extends TestCase {
 		rmdir($dir);
 	}
 	
+	#[\Override]
 	function tearDown(): void {
 		if(is_resource($this->handle)) {
 			fclose($this->handle);

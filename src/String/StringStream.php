@@ -4,6 +4,7 @@ abstract class StringStream implements Stream {
 	protected string $string = "";
 	protected int $pos = 0;
 	protected bool $open = true;
+	#[\Override]
 	public function close(): void {
 		$this->assertOpen();
 		$this->open = false;
@@ -16,11 +17,13 @@ abstract class StringStream implements Stream {
 	throw new StreamClosedException();
 	}
 
+	#[\Override]
 	public function eof(): bool {
 		$this->assertOpen();
 		return strlen($this->string) === $this->pos;
 	}
 
+	#[\Override]
 	public function tell(): int {
 		$this->assertOpen();
 		return $this->pos;
