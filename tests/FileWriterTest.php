@@ -49,6 +49,11 @@ final class FileWriterTest extends TestCase {
 		$this->assertFileExists("/tmp/phpunit/plibv4/streams/example01.txt");
 	}
 	
+	function testConstructAppendNotExist(): void {
+		$this->expectException(NoSuchFileException::class);
+		new FileWriter("/tmp/phpunit/plibv4/streams/example45.txt", FWMode::APPEND);
+	}
+	
 	function testConstructLazyAppend(): void {
 		touch("/tmp/phpunit/plibv4/streams/example01.txt");
 		$fw = new FileWriter("/tmp/phpunit/plibv4/streams/example01.txt", FWMode::LAZY);
@@ -60,6 +65,14 @@ final class FileWriterTest extends TestCase {
 		$fw = new FileWriter("/tmp/phpunit/plibv4/streams/example01.txt", FWMode::LAZY);
 		$this->assertInstanceOf(FileWriter::class, $fw);
 		$this->assertFileExists("/tmp/phpunit/plibv4/streams/example01.txt");
+	}
+	
+	function testLazyNotWriteable(): void {
+		$path = "/tmp/phpunit/plibv4/streams/example01.txt";
+		touch($path);
+		chmod($path, 0444);
+		$this->expectException(NotWritableException::class);
+		$fw = new FileWriter("/tmp/phpunit/plibv4/streams/example01.txt", FWMode::LAZY);
 	}
 	
 	
