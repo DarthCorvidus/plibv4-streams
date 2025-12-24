@@ -72,7 +72,7 @@ final class FileWriterTest extends TestCase {
 		touch($path);
 		chmod($path, 0444);
 		$this->expectException(NotWritableException::class);
-		$fw = new FileWriter("/tmp/phpunit/plibv4/streams/example01.txt", FWMode::LAZY);
+		new FileWriter("/tmp/phpunit/plibv4/streams/example01.txt", FWMode::LAZY);
 	}
 	
 	
